@@ -5,7 +5,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { getMenu } from "@/lib/shopify";
 import { MenuItem, Menus } from "@/types/menu";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,8 +28,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const menuResponse: { data: Menus } = await getMenu("main-menu");
-  const menu = menuResponse.data.menu
-  const items:MenuItem[] = menu.items
+  const menu = menuResponse.data.menu;
+  const items: MenuItem[] = menu.items;
   return (
     <html lang="en">
       <body
@@ -36,6 +37,8 @@ export default async function RootLayout({
       >
         <Header menus={items} />
         {children}
+        <SpeedInsights />
+        <Analytics />
         <Footer />
       </body>
     </html>
