@@ -191,3 +191,6 @@ query Collection($handle: String!, $first: Int!) {
   }
 }
 `
+
+export const GET_PRODUCT_BY_ID = `
+`

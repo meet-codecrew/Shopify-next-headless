@@ -12,7 +12,7 @@ const getPathName = (url: string) => {
 };
 
 const footerLinksObject = (links: MenuItem[]): Record<string, MenuItem[]> => {
-  let linkObj: Record<string, MenuItem[]> = {};
+  const linkObj: Record<string, MenuItem[]> = {};
   links.map((item) => {
     linkObj[item.title] = item.items.map((subItem) => ({
       ...subItem,
