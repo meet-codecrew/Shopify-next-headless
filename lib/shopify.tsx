@@ -2,6 +2,7 @@ import {
   GET_COLLECTION_QUERY,
   GET_COLLECTIONS_QUERY,
   GET_MENU_QUERY,
+  GET_PAGE,
   GET_PRODUCT_QUERY,
   GET_PRODUCT_RECOMMENDATIONS_QUERY,
   GET_PRODUCTS_QUERY,
@@ -15,6 +16,7 @@ import {
 import { Menus } from "@/types/menu";
 import { QueryOptions, ShopDetails, ShopifyConfig } from "@/types/shopify";
 import { CollectionHandle, Collections } from "@/types/collection";
+import { PageHandle } from "@/types/page";
 
 export class ShopifyClient {
   private config: ShopifyConfig;
@@ -130,5 +132,13 @@ export async function getCollection(
 
   return shopify.fetch<CollectionHandle>(query, {
     variables: { handle, first },
+  });
+}
+
+export async function getPage(handle: string): Promise<{ data: PageHandle }> {
+  const query = GET_PAGE;
+
+  return shopify.fetch<PageHandle>(query, {
+    variables: { handle },
   });
 }

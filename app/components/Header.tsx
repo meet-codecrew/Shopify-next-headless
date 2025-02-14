@@ -21,7 +21,7 @@ const Header = ({
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
-    <header className="shadow-sm">
+    <header className="shadow-sm sticky bg-background top-0 z-20">
       <nav className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-3 items-center h-16">
           <div className="flex-shrink-0">

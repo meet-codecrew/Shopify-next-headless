@@ -171,6 +171,7 @@ query Collection($handle: String!, $first: Int!) {
         node {
           id
           title
+          handle
           priceRange {
             minVariantPrice {
               amount
@@ -194,3 +195,16 @@ query Collection($handle: String!, $first: Int!) {
 
 export const GET_PRODUCT_BY_ID = `
 `
+
+export const GET_PAGE = `
+query getPageByHandle($handle: String!) {
+  pageByHandle(handle: $handle) {
+    id
+    title
+    body
+    handle
+    createdAt
+    updatedAt
+  }
+}
+` 
