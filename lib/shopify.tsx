@@ -1,11 +1,20 @@
 import {
+  GET_COLLECTION_QUERY,
+  GET_COLLECTIONS_QUERY,
   GET_MENU_QUERY,
   GET_PRODUCT_QUERY,
+  GET_PRODUCT_RECOMMENDATIONS_QUERY,
   GET_PRODUCTS_QUERY,
+  GET_STORE_DETAILS_QUERY,
 } from "./constant";
-import { ProductHandle, Products } from "@/types/product";
+import {
+  ProductHandle,
+  Products,
+  RecommendedProductHandle,
+} from "@/types/product";
 import { Menus } from "@/types/menu";
-import { QueryOptions, ShopifyConfig } from "@/types/shopify";
+import { QueryOptions, ShopDetails, ShopifyConfig } from "@/types/shopify";
+import { CollectionHandle, Collections } from "@/types/collection";
 
 export class ShopifyClient {
   private config: ShopifyConfig;
@@ -21,7 +30,7 @@ export class ShopifyClient {
     query: string,
     options: QueryOptions = {}
   ): Promise<{ data: T; errors?: Error[] }> {
-    const { variables = {}, cache = "force-cache" } = options;
+    const { variables = {}, cache = "no-cache" } = options;
 
     try {
       const response = await fetch(
@@ -85,5 +94,41 @@ export async function getMenu(handle: string): Promise<{ data: Menus }> {
 
   return shopify.fetch<Menus>(query, {
     variables: { handle },
+  });
+}
+export async function getShopDetails(): Promise<{ data: ShopDetails }> {
+  const query = GET_STORE_DETAILS_QUERY;
+
+  return shopify.fetch<ShopDetails>(query);
+}
+
+export async function getRecommendations(
+  id: string | null
+): Promise<{ data: RecommendedProductHandle }> {
+  const query = GET_PRODUCT_RECOMMENDATIONS_QUERY;
+
+  return shopify.fetch<RecommendedProductHandle>(query, {
+    variables: { productId: id },
+  });
+}
+
+export async function getCollections(
+  first: number = 10
+): Promise<{ data: Collections }> {
+  const query = GET_COLLECTIONS_QUERY;
+
+  return shopify.fetch<Collections>(query, {
+    variables: { first },
+  });
+}
+
+export async function getCollection(
+  handle: string,
+  first: number = 10
+): Promise<{ data: CollectionHandle }> {
+  const query = GET_COLLECTION_QUERY;
+
+  return shopify.fetch<CollectionHandle>(query, {
+    variables: { handle, first },
   });
 }

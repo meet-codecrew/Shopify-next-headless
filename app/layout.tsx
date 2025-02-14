@@ -3,10 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { getMenu } from "@/lib/shopify";
+import { getMenu, getShopDetails } from "@/lib/shopify";
 import { MenuItem, Menus } from "@/types/menu";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import { ShopDetails } from "@/types/shopify";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,18 +29,25 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const menuResponse: { data: Menus } = await getMenu("main-menu");
-  const menu = menuResponse.data.menu;
-  const items: MenuItem[] = menu.items;
+  const footerResponse: { data: Menus } = await getMenu("footer");
+  
+  const shopDetails: { data: ShopDetails } = await getShopDetails();
+
+  const headerMenu = menuResponse.data.menu;
+  const footerMenu = footerResponse.data.menu;
+  
+  const headerItems: MenuItem[] = headerMenu.items;
+  const footerItems: MenuItem[] = footerMenu.items;
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header menus={items} />
+        <Header menus={headerItems} shopDetails={shopDetails.data} />
         {children}
         <SpeedInsights />
         <Analytics />
-        <Footer />
+        <Footer menus={footerItems} shopDetails={shopDetails.data} />
       </body>
     </html>
   );

@@ -4,26 +4,32 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Menu, X, Search, User } from "lucide-react";
 import { MenuItem } from "@/types/menu";
+import { ShopDetails } from "@/types/shopify";
 
 const getPathName = (url: string) => {
-    const urlParts = new URL(url)
-    const pathName = urlParts.pathname.replace("/all", "");
-    return pathName;
-}
+  const urlParts = new URL(url);
+  const pathName = urlParts.pathname.replace("/all", "");
+  return pathName;
+};
 
-const Header = ({ menus }: { menus: MenuItem[] }) => {
+const Header = ({
+  menus,
+  shopDetails,
+}: {
+  menus: MenuItem[];
+  shopDetails: ShopDetails;
+}) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <header className="shadow-sm">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-3 items-center h-16">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold">
-              Store
+            <Link href="/" className="text-sm lg:text-2xl md:text-xl font-bold uppercase">
+              {shopDetails.shop.name}
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="justify-center hidden md:flex items-center space-x-8">
             {menus.map((item) => (
               <Link

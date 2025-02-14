@@ -3,6 +3,7 @@ export type MenuItem = {
   title: string;
   url: string;
   items: Array<MenuItem>;
+  href?: string;
 };
 
 export type Menus = {

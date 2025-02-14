@@ -80,6 +80,30 @@ export const GET_PRODUCT_QUERY = `
     }
 `;
 
+export const GET_PRODUCT_RECOMMENDATIONS_QUERY = `
+query productRecommendations($productId: ID!) {
+  productRecommendations(productId: $productId) {
+    id
+    title
+    handle
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first: 1) {
+      edges {
+        node {
+          url
+          altText
+        }
+      }
+    }
+  }
+}
+`;
+
 export const GET_MENU_QUERY = `
 query getMenu($handle: String!) {
   menu(handle: $handle) {
@@ -102,3 +126,68 @@ query getMenu($handle: String!) {
   }
 }
 `;
+
+export const GET_STORE_DETAILS_QUERY = `
+query getShopDetails {  
+    shop {
+      name
+      description
+    }
+  }
+`;
+
+export const GET_COLLECTIONS_QUERY = `
+query Collections($first: Int!) {
+  collections(first: $first) {
+    edges {
+      node {
+        id
+        title
+        description
+        handle
+        image {
+          id
+          url
+        }
+      }
+    }
+  }
+}
+`
+
+export const GET_COLLECTION_QUERY = `
+query Collection($handle: String!, $first: Int!) {
+  collectionByHandle(handle: $handle) {
+    id
+    title
+    description
+    image {
+      id
+      url
+      altText
+    }
+    products(first: $first) {
+      edges {
+        node {
+          id
+          title
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          images(first: 1) {
+            edges {
+              node {
+                url
+                altText
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`
