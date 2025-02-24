@@ -12,18 +12,18 @@ type Response = {
 
 // export async function generateMetadata()
 
-// const removeEdgeAndNodes = ({ data }: Response) => {
-//   if (!data || !data.productByHandle) return null; // Handle missing product
+const removeEdgeAndNodes = ({ data }: Response) => {
+  if (!data || !data.productByHandle) return null;
 
-//   const variant = data.productByHandle.variants.edges.map(({ node }) => node);
-//   const images = data.productByHandle.images.edges.map(({ node }) => node);
+  const variant = data.productByHandle.variants.edges.map(({ node }) => node);
+  const images = data.productByHandle.images.edges.map(({ node }) => node);
 
-//   return {
-//     ...data.productByHandle,
-//     images,
-//     variants: variant,
-//   };
-// };
+  return {
+    ...data.productByHandle,
+    images,
+    variants: variant,
+  };
+};
 
 const formatPrice = (amount: string, currencyCode: string) => {
   return new Intl.NumberFormat("en-IN", {

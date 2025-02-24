@@ -1,25 +1,35 @@
+export type Product = {
+  id: string;
+  title: string;
+  handle: string;
+  priceRange: {
+    maxVariantPrice?: {
+      amount: string;
+      currencyCode: string;
+    };
+    minVariantPrice: {
+      amount: string;
+      currencyCode: string;
+    };
+  };
+  images: {
+    edges: Array<{
+      node: {
+        url: string;
+        altText: string | null;
+      };
+    }>;
+  };
+};
+
+export type TransformedProduct = Omit<Product, "images"> & {
+  images: Array<{ url: string; altText: string | null }>;
+};
+
 export type Products = {
   products: {
     edges: Array<{
-      node: {
-        id: string;
-        title: string;
-        handle: string;
-        priceRange: {
-          minVariantPrice: {
-            amount: string;
-            currencyCode: string;
-          };
-        };
-        images: {
-          edges: Array<{
-            node: {
-              url: string;
-              altText: string | null;
-            };
-          }>;
-        };
-      };
+      node: Product;
     }>;
   };
 };
