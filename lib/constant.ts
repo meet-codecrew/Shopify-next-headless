@@ -52,6 +52,10 @@ export const GET_PRODUCT_QUERY = `
             }
           }
         }
+        seo {
+          description
+          title
+        }
         variants(first: 10) {
           edges {
             node {

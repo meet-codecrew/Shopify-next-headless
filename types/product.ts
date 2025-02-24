@@ -61,6 +61,10 @@ export type ProductHandle = {
         currencyCode: string;
       };
     };
+    seo: {
+      title: string;
+      description: string;
+    };
     images: {
       edges: Array<{
         node: {

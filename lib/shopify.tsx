@@ -11,7 +11,7 @@ import {
 import {
   ProductHandle,
   Products,
-  RecommendedProductHandle,
+  RecommendedProductHandle
 } from "@/types/product";
 import { Menus } from "@/types/menu";
 import { QueryOptions, ShopDetails, ShopifyConfig } from "@/types/shopify";
